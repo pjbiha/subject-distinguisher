@@ -48,11 +48,11 @@ blue_mask = cv2.inRange(hsv, blue_min, blue_max)
 red_pixels = cv2.countNonZero(red_mask)
 green_pixels = cv2.countNonZero(green_mask)
 blue_pixels = cv2.countNonZero(blue_mask)
-
+subject=""
 #determine the subject
 if red_pixels > green_pixels and red_pixels > blue_pixels:
-    print("Subject: Math")
+    subject="Math"
 elif blue_pixels > green_pixels and blue_pixels > red_pixels:
-    print("Subject: Language")
+    subject="Language"
 elif green_pixels > blue_pixels and green_pixels > red_pixels:
-    print("Subject: Biology")
+    subject="Biology"
