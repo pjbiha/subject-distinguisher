@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- makes sures the page loads perfectly on any device size -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SubjectApart</h1>
+        </div>
+        <div class="upload-area">
+            <div id="file-name">...</div>
+            <button id="chooseButton" onclick="deleteresult()"> Choose</button>
+            <input type="file" id="fileInput" accept=".jpg, .jpeg, .png" onchange="displayFileName()">
+            <button onclick="uploadFile()">Upload</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        //trigger file input click when "Choose" button is clicked
+        document.getElementById('chooseButton').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        function displayFileName() {
+            //get the file input and file name display elements
+            var fileInput = document.getElementById('fileInput');
+            var fileNameDisplay = document.getElementById('file-name');
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = '...';
+            }
+        }
+        //deletes the previous result
+        function deleteresult(){
+            var result = document.getElementById('result');
+            document.getElementById('result').innerHTML = '';
+        }
+        function uploadFile() {
+            //get the file input element
+            var fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                var file = fileInput.files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+
+                fetch('process.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    //display the result in the result div
+                    document.getElementById('result').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+</body>
+</html>
