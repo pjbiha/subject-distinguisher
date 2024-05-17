@@ -4,7 +4,7 @@ if (isset($_FILES['file'])) {
     //check if the upload was successful and the file is not empty
     if ($_FILES['file']['error'] === UPLOAD_ERR_OK && $_FILES['file']['size'] > 0) {
         //specify the directory where the uploaded file will be directed to (if copied, change it to your desired directory)
-        $uploadDir = 'C:/Users/PJ Bihaltzis/Desktop/subject apart/';
+        $uploadDir = '/upload/';
         //create a unique name with the time in milliseconds and the type of file
         $filename = uniqid('image_') . '.' . pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         //move the uploaded file to the specified directory 
